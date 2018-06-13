@@ -24,4 +24,4 @@ package haberdasher
 // It is also used to tell protoc where to put output generated files, through
 // --twirp_out and --go_out.
 
-//go:generate protoc --proto_path=$GOPATH/src --twirp_out=$GOPATH/src --go_out=$GOPATH/src github.com/twitchtv/twirp-example/rpc/haberdasher/haberdasher.proto
+//go:generate protoc --proto_path=$GOPATH/src --twirp_out=$GOPATH/src --go_out=$GOPATH/src github.com/basvanbeek/twirp-example/rpc/haberdasher/haberdasher.proto

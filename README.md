@@ -1,15 +1,60 @@
-# twirp-example
+# twirp-example with opencensus instrumentation
 
-This is an exmaple Twirp service for educational purposes. Learn more about
-Twirp at its [website](https://twitchtv.github.io/twirp/docs/intro.html) or
+This is an example Twirp service with [OpenCensus] instrumentation for
+educational purposes. Learn more about Twirp at its
+[website](https://twitchtv.github.io/twirp/docs/intro.html) or
 [repo](https://github.com/twitchtv/twirp).
+
+## Example rationale
+
+This is a fork from the standard twirp-example project as provided by twitchtv.
+The demo highlights how easy it is to instrument a Twirp service with
+[OpenCensus]. Since Twirp uses the standard HTTP server and client libraries
+from Go and also has a different path for each service method, it is possible to
+use the standard ochttp middleware for instrumenting Twirp services. This demo
+highlights that feature.
+
+### OpenCensus
+[OpenCensus] is a single distribution of libraries for metrics and distributed
+tracing. It supports multiple tracing and metrics backends. For more information
+see the [website](https://opencensus.io).
+
+### Zipkin
+For tracing we have chosen the [Zipkin] backend in this example, as it is very
+easy to get it going. You can run the [Zipkin] jar if having Java installed or
+use the official Docker container. For more information on getting started with
+[Zipkin] see the [Zipkin Quickstart](https://zipkin.io/pages/quickstart).
+
+### Prometheus
+For metrics we have chosen the [Prometheus] backend in this example, again
+because it is easy to get started. You will need to configure [Prometheus] to
+scrape the service. A typical simple config scraping [Prometheus] itself and our
+haberdasher service can look like this if running [Prometheus] locally:
+
+```yaml
+global:
+  scrape_interval:     10s
+  evaluation_interval: 10s
+
+scrape_configs:
+  - job_name: 'prometheus'
+    static_configs:
+    - targets: ['localhost:9090']
+  - job_name: 'haberdasher'
+    static_configs:
+    - targets: ['localhost:8080']
+```
+
+[OpenCensus]: (https://opencensus.io)
+[Zipkin]: (https://zipkin.io)
+[Prometheus]: (https://prometheus.io/)
 
 ## Try it out
 
 First, download this repo with the Go tool:
 ```
-go get github.com/twitchtv/twirp-example/...
-cd $GOPATH/src/github.com/twitchtv/twirp-example
+go get github.com/basvanbeek/twirp-example/...
+cd $GOPATH/src/github.com/basvanbeek/twirp-example
 ```
 
 Next, try building the client and server binaries:
